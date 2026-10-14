@@ -2,9 +2,9 @@ import TaskList from "./components/TaskList"
 import NewTaskForm from "./components/NewTaskForm"
 import Footer from "./components/Footer"
 
-const tasks = [{id:0, description : 'Изучить JS', completed : true},
-    {id:1, description : 'Изучить React', completed : false},
-    {id:2, description : 'Изучить Node', completed : false}
+const tasks = [{id:0, description : 'Изучить JS', completed : true, created : new Date()},
+    {id:1, description : 'Изучить React', completed : false, created : new Date()},
+    {id:2, description : 'Изучить Node', completed : false, created : new Date()}
  ]
 
  const activeTasks = tasks.filter((task) => {
