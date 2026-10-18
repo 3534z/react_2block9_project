@@ -38,11 +38,16 @@ function App() {
   }))
  }
 
+ function addTask(text) {
+  setTasks([...tasks, {id: Date.now(), 
+    description: text, completed: false, created: new Date()}])
+ }
+
   return (
     <section className="todoapp">
     <header className="header">
       <h1>todos</h1>
-      <NewTaskForm />
+      <NewTaskForm addTask={addTask}/>
     </header>
     <section className="main">
       <TaskList tasks={tasks} toggleTask={toggleTask} deleteTask={deleteTask} editTask={editTask}/>
