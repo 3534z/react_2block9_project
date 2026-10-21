@@ -10,6 +10,16 @@ function App() {
     {id:2, description : 'Изучить Node', completed : false, created : new Date()}
  ])
 
+  useEffect(() => {
+  fetch('https://jsonplaceholder.typicode.com/todos')
+  .then(response => response.json())
+  .then(data => {
+    setTasks(data.map((task) => {
+      return {...task, description: task.title, created: new Date()}
+    }))
+  })
+ }, [])
+
   const [filter, setFilter] = useState('all')
 
   let filteredTasks = tasks
