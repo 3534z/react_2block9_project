@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import TaskList from "./components/TaskList"
 import NewTaskForm from "./components/NewTaskForm"
 import Footer from "./components/Footer"
@@ -9,6 +9,19 @@ function App() {
     {id:1, description : 'Изучить React', completed : false, created : new Date()},
     {id:2, description : 'Изучить Node', completed : false, created : new Date()}
  ])
+
+  const [filter, setFilter] = useState('all')
+
+  let filteredTasks = tasks
+    if (filter === 'active') {
+      filteredTasks = tasks.filter((task) => {
+        return !task.completed
+      })
+    } else if (filter === 'completed') {
+      filteredTasks = tasks.filter((task) => {
+        return task.completed
+      })
+    }
 
   const activeTasks = tasks.filter((task) => {
   return !task.completed
@@ -43,6 +56,12 @@ function App() {
     description: text, completed: false, created: new Date()}])
  }
 
+ function clearCompleted() {
+  setTasks(tasks.filter((task) => {
+    return task.completed === false
+  }))
+ }
+
   return (
     <section className="todoapp">
     <header className="header">
@@ -50,8 +69,10 @@ function App() {
       <NewTaskForm addTask={addTask}/>
     </header>
     <section className="main">
-      <TaskList tasks={tasks} toggleTask={toggleTask} deleteTask={deleteTask} editTask={editTask}/>
-      <Footer activeTasks={activeTasks.length}/>
+      <TaskList tasks={filteredTasks} toggleTask={toggleTask}
+       deleteTask={deleteTask} editTask={editTask}/>
+      <Footer activeTasks={activeTasks.length} filter={filter}
+       setFilter={setFilter} clearCompleted={clearCompleted}/>
     </section>
   </section>
   )
